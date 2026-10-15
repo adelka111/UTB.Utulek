@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UTB.Utulek.Domain.Entities;
 
+[Table(nameof(AnimalUpdate))]
 public class AnimalUpdate : BaseEntity
 {
     [Required(ErrorMessage = "Nadpis je povinný.")]

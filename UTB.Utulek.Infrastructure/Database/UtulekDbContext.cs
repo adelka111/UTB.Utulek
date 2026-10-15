@@ -8,6 +8,8 @@ public class UtulekDbContext : DbContext
 {
     public DbSet<Animal> Animals { get; set; }
     public DbSet<Species> Species { get; set; }
+    public DbSet<VirtualAdoption> VirtualAdoptions { get; set; }
+    public DbSet<AnimalUpdate> AnimalUpdates { get; set; }
 
     public UtulekDbContext(DbContextOptions options) : base(options)
     {

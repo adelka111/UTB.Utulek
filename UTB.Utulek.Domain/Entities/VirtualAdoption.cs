@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UTB.Utulek.Domain.Entities;
 
+[Table(nameof(VirtualAdoption))]
 public class VirtualAdoption : BaseEntity
 {
     [Range(50, 100000, ErrorMessage = "Měsíční příspěvek musí být 50 až 100 000 Kč.")]
