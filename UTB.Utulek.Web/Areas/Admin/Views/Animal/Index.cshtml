@@ -1,7 +1,7 @@
 ﻿@model IList<Animal>
 @using UTB.Utulek.Domain.Entities
 @{
-    ViewData["Title"] = "Animal Administrator";
+    ViewData["Title"] = "Správa zvířat";
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -14,7 +14,9 @@
                 <th scope="col">@nameof(Animal.Name)</th>
                 <th scope="col">@nameof(Animal.Species)</th>
                 <th scope="col">@nameof(Animal.BirthDate)</th>
+                @* TODO: odkomentovat po implementaci akcí Details, Edit a Delete v AnimalController
                 <th scope="col">Actions</th>
+                *@
             </tr>
         </thead>
         <tbody>
@@ -25,11 +27,13 @@
                     <td>@animal.Name</td>
                     <td>@animal.Species?.Name</td>
                     <td>@animal.BirthDate.ToShortDateString()</td>
+                    @* TODO: odkomentovat po implementaci akcí Details, Edit a Delete v AnimalController
                     <td>
                         <a asp-action="Details" asp-route-id="@animal.Id" class="btn btn-sm btn-info">Detail</a>
                         <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-sm btn-primary">Upravit</a>
                         <a asp-action="Delete" asp-route-id="@animal.Id" class="btn btn-sm btn-danger">Smazat</a>
                     </td>
+                    *@
                 </tr>
             }
         </tbody>
@@ -40,4 +44,6 @@ else
     <p>Žádná zvířata nejsou v databázi.</p>
 }
 
+@* TODO: odkomentovat po implementaci akce Create v AnimalController
 <a asp-action="Create" class="btn btn-success">Přidat zvíře</a>
+*@
