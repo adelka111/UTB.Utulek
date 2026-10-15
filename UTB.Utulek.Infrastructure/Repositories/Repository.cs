@@ -2,50 +2,49 @@
 using System.Linq.Expressions;
 using UTB.Utulek.Domain.Repositories;
 
-namespace UTB.Utulek.Infrastructure.Repositories
+namespace UTB.Utulek.Infrastructure.Repositories;
+
+public class Repository<T, TKey> : IRepository<T, TKey> where T : class where TKey : notnull
 {
-    public class Repository<T, TKey> : IRepository<T, TKey> where T : class where TKey : notnull
+    protected readonly DbSet<T> dbSet;
+    private readonly DbContext dbContext;
+
+    public Repository(DbContext dbContext)
     {
-        protected readonly DbSet<T> dbSet;
-        private readonly DbContext dbContext;
+        this.dbSet = dbContext.Set<T>();
+        this.dbContext = dbContext;
+    }
 
-        public Repository(DbContext dbContext)
-        {
-            this.dbSet = dbContext.Set<T>();
-            this.dbContext = dbContext;
-        }
+    public virtual T? GetById(TKey id)
+    {
+        return dbSet.Find(id);
+    }
 
-        public virtual T? GetById(TKey id)
-        {
-            return dbSet.Find(id);
-        }
+    public virtual IEnumerable<T> GetAll()
+    {
+        return dbSet.ToList();
+    }
 
-        public virtual IEnumerable<T> GetAll()
-        {
-            return dbSet.ToList();
-        }
+    public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate)
+    {
+        return dbSet.Where(predicate).ToList();
+    }
 
-        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate)
-        {
-            return dbSet.Where(predicate).ToList();
-        }
+    public virtual void Add(T entity)
+    {
+        dbSet.Add(entity);
+        dbContext.SaveChanges();
+    }
 
-        public virtual void Add(T entity)
-        {
-            dbSet.Add(entity);
-            dbContext.SaveChanges();
-        }
+    public virtual void Edit(T entity)
+    {
+        dbSet.Update(entity);
+        dbContext.SaveChanges();
+    }
 
-        public virtual void Edit(T entity)
-        {
-            dbSet.Update(entity);
-            dbContext.SaveChanges();
-        }
-
-        public virtual void Delete(T entity)
-        {
-            dbSet.Remove(entity);
-            dbContext.SaveChanges();
-        }
+    public virtual void Delete(T entity)
+    {
+        dbSet.Remove(entity);
+        dbContext.SaveChanges();
     }
 }

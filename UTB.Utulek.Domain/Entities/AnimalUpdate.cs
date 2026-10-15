@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities;
+namespace UTB.Utulek.Domain.Entities;
 
 public class AnimalUpdate : BaseEntity
 {

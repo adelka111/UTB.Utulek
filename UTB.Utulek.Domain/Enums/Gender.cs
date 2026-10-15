@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums;
+﻿namespace UTB.Utulek.Domain.Enums;
 
 public enum Gender
 {

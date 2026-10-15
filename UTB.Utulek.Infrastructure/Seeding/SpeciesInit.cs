@@ -1,18 +1,17 @@
-﻿using Domain.Entities;
+﻿using UTB.Utulek.Domain.Entities;
 
-namespace UTB.Utulek.Infrastructure.Database.Seeding
+namespace UTB.Utulek.Infrastructure.Database.Seeding;
+
+internal class SpeciesInit
 {
-    internal class SpeciesInit
+    public IList<Species> GetSpecies()
     {
-        public IList<Species> GetSpecies()
-        {
-            IList<Species> species = new List<Species>();
+        IList<Species> species = new List<Species>();
 
-            species.Add(new Species { Id = 1, Name = "Pes" });
-            species.Add(new Species { Id = 2, Name = "Kočka" });
-            species.Add(new Species { Id = 3, Name = "Králík" });
+        species.Add(new Species { Id = 1, Name = "Pes" });
+        species.Add(new Species { Id = 2, Name = "Kočka" });
+        species.Add(new Species { Id = 3, Name = "Králík" });
 
-            return species;
-        }
+        return species;
     }
 }

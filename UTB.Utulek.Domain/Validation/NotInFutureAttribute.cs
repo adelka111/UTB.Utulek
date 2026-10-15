@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Validation;
+namespace UTB.Utulek.Domain.Validation;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class NotInFutureAttribute : ValidationAttribute

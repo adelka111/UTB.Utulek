@@ -1,9 +1,8 @@
-﻿using Domain.Entities;
+﻿using UTB.Utulek.Domain.Entities;
 
-namespace UTB.Utulek.Application.Abstraction
+namespace UTB.Utulek.Application.Abstraction;
+
+public interface IAnimalAppService
 {
-    public interface IAnimalAppService
-    {
-        IList<Animal> SelectAll();
-    }
+    IList<Animal> SelectAll();
 }

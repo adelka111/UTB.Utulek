@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace UTB.Utulek.Domain.Entities;
 
 public abstract class BaseEntity
 {

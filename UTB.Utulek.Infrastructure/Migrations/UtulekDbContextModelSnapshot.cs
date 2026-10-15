@@ -8,241 +8,240 @@ using UTB.Utulek.Infrastructure.Database;
 
 #nullable disable
 
-namespace UTB.Utulek.Infrastructure.Migrations
+namespace UTB.Utulek.Infrastructure.Migrations;
+
+[DbContext(typeof(UtulekDbContext))]
+partial class UtulekDbContextModelSnapshot : ModelSnapshot
 {
-    [DbContext(typeof(UtulekDbContext))]
-    partial class UtulekDbContextModelSnapshot : ModelSnapshot
+    protected override void BuildModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "10.0.12")
+            .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+        MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Animal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.Animal", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                b.Property<DateTime>("BirthDate")
+                    .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Breed")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                b.Property<string>("Breed")
+                    .HasMaxLength(100)
+                    .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("varchar(2000)");
+                b.Property<string>("Description")
+                    .HasMaxLength(2000)
+                    .HasColumnType("varchar(2000)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
+                b.Property<int>("Gender")
+                    .HasColumnType("int");
 
-                    b.Property<string>("ImageFileName")
-                        .HasColumnType("longtext");
+                b.Property<string>("ImageFileName")
+                    .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("varchar(100)");
 
-                    b.Property<int>("SpeciesId")
-                        .HasColumnType("int");
+                b.Property<int>("SpeciesId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("SpeciesId");
+                b.HasIndex("SpeciesId");
 
-                    b.ToTable("Animal");
+                b.ToTable("Animal");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BirthDate = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Breed = "Kříženec",
-                            Description = "Přátelský pes, má rád dlouhé procházky.",
-                            Gender = 0,
-                            ImageFileName = "/img/animals/rex.jpg",
-                            Name = "Rex",
-                            SpeciesId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BirthDate = new DateTime(2022, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Breed = "Evropská krátkosrstá",
-                            Description = "Klidná kočka, vhodná i do bytu.",
-                            Gender = 1,
-                            ImageFileName = "/img/animals/micka.jpg",
-                            Name = "Micka",
-                            SpeciesId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BirthDate = new DateTime(2023, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Breed = "Králík domácí",
-                            Description = "Mladý králík, zvyklý na děti.",
-                            Gender = 0,
-                            ImageFileName = "/img/animals/bob.jpg",
-                            Name = "Bob",
-                            SpeciesId = 3
-                        });
-                });
+                b.HasData(
+                    new
+                    {
+                        Id = 1,
+                        BirthDate = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                        Breed = "Kříženec",
+                        Description = "Přátelský pes, má rád dlouhé procházky.",
+                        Gender = 0,
+                        ImageFileName = "/img/animals/rex.jpg",
+                        Name = "Rex",
+                        SpeciesId = 1
+                    },
+                    new
+                    {
+                        Id = 2,
+                        BirthDate = new DateTime(2022, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                        Breed = "Evropská krátkosrstá",
+                        Description = "Klidná kočka, vhodná i do bytu.",
+                        Gender = 1,
+                        ImageFileName = "/img/animals/micka.jpg",
+                        Name = "Micka",
+                        SpeciesId = 2
+                    },
+                    new
+                    {
+                        Id = 3,
+                        BirthDate = new DateTime(2023, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                        Breed = "Králík domácí",
+                        Description = "Mladý králík, zvyklý na děti.",
+                        Gender = 0,
+                        ImageFileName = "/img/animals/bob.jpg",
+                        Name = "Bob",
+                        SpeciesId = 3
+                    });
+            });
 
-            modelBuilder.Entity("Domain.Entities.AnimalUpdate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.AnimalUpdate", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
+                b.Property<int>("AnimalId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                b.Property<DateTime>("CreatedAt")
+                    .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("varchar(2000)");
+                b.Property<string>("Text")
+                    .IsRequired()
+                    .HasMaxLength(2000)
+                    .HasColumnType("varchar(2000)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                b.Property<string>("Title")
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .HasColumnType("varchar(150)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AnimalId");
+                b.HasIndex("AnimalId");
 
-                    b.ToTable("AnimalUpdate");
-                });
+                b.ToTable("AnimalUpdate");
+            });
 
-            modelBuilder.Entity("Domain.Entities.Species", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.Species", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("varchar(50)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Species");
+                b.ToTable("Species");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Pes"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Kočka"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Králík"
-                        });
-                });
+                b.HasData(
+                    new
+                    {
+                        Id = 1,
+                        Name = "Pes"
+                    },
+                    new
+                    {
+                        Id = 2,
+                        Name = "Kočka"
+                    },
+                    new
+                    {
+                        Id = 3,
+                        Name = "Králík"
+                    });
+            });
 
-            modelBuilder.Entity("Domain.Entities.VirtualAdoption", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.VirtualAdoption", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
+                b.Property<int>("AnimalId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
+                b.Property<bool>("IsActive")
+                    .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Message")
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                b.Property<string>("Message")
+                    .HasMaxLength(500)
+                    .HasColumnType("varchar(500)");
 
-                    b.Property<decimal>("MonthlyAmount")
-                        .HasColumnType("decimal(65,30)");
+                b.Property<decimal>("MonthlyAmount")
+                    .HasColumnType("decimal(65,30)");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
+                b.Property<DateTime>("StartDate")
+                    .HasColumnType("datetime(6)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                b.Property<string>("UserId")
+                    .IsRequired()
+                    .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AnimalId");
+                b.HasIndex("AnimalId");
 
-                    b.ToTable("VirtualAdoption");
-                });
+                b.ToTable("VirtualAdoption");
+            });
 
-            modelBuilder.Entity("Domain.Entities.Animal", b =>
-                {
-                    b.HasOne("Domain.Entities.Species", "Species")
-                        .WithMany("Animals")
-                        .HasForeignKey("SpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.Animal", b =>
+            {
+                b.HasOne("UTB.Utulek.Domain.Entities.Species", "Species")
+                    .WithMany("Animals")
+                    .HasForeignKey("SpeciesId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Species");
-                });
+                b.Navigation("Species");
+            });
 
-            modelBuilder.Entity("Domain.Entities.AnimalUpdate", b =>
-                {
-                    b.HasOne("Domain.Entities.Animal", "Animal")
-                        .WithMany("Updates")
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.AnimalUpdate", b =>
+            {
+                b.HasOne("UTB.Utulek.Domain.Entities.Animal", "Animal")
+                    .WithMany("Updates")
+                    .HasForeignKey("AnimalId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Animal");
-                });
+                b.Navigation("Animal");
+            });
 
-            modelBuilder.Entity("Domain.Entities.VirtualAdoption", b =>
-                {
-                    b.HasOne("Domain.Entities.Animal", "Animal")
-                        .WithMany("VirtualAdoptions")
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.VirtualAdoption", b =>
+            {
+                b.HasOne("UTB.Utulek.Domain.Entities.Animal", "Animal")
+                    .WithMany("VirtualAdoptions")
+                    .HasForeignKey("AnimalId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Animal");
-                });
+                b.Navigation("Animal");
+            });
 
-            modelBuilder.Entity("Domain.Entities.Animal", b =>
-                {
-                    b.Navigation("Updates");
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.Animal", b =>
+            {
+                b.Navigation("Updates");
 
-                    b.Navigation("VirtualAdoptions");
-                });
+                b.Navigation("VirtualAdoptions");
+            });
 
-            modelBuilder.Entity("Domain.Entities.Species", b =>
-                {
-                    b.Navigation("Animals");
-                });
+        modelBuilder.Entity("UTB.Utulek.Domain.Entities.Species", b =>
+            {
+                b.Navigation("Animals");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }

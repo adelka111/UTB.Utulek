@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Enums;
-using Domain.Validation;
+using UTB.Utulek.Domain.Enums;
+using UTB.Utulek.Domain.Validation;
 
-namespace Domain.Entities;
+namespace UTB.Utulek.Domain.Entities;
 
 [Table(nameof(Animal))]
 public class Animal : BaseEntity
