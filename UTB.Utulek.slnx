@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="UTB.Utulek.Application/UTB.Utulek.Application.csproj" />
+  <Project Path="UTB.Utulek.Domain/UTB.Utulek.Domain.csproj" />
+  <Project Path="UTB.Utulek.Infrastructure/UTB.Utulek.Infrastructure.csproj" />
+  <Project Path="UTB.Utulek.Web/UTB.Utulek.Web.csproj" />
+</Solution>

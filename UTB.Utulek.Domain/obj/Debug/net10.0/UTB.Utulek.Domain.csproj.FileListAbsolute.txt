@@ -1,0 +1,12 @@
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\bin\Debug\net10.0\UTB.Utulek.Domain.deps.json
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\bin\Debug\net10.0\UTB.Utulek.Domain.dll
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\bin\Debug\net10.0\UTB.Utulek.Domain.pdb
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utulek.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utulek.Domain.AssemblyInfoInputs.cache
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utulek.Domain.AssemblyInfo.cs
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utulek.Domain.csproj.CoreCompileInputs.cache
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utulek.Domain.dll
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\refint\UTB.Utulek.Domain.dll
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utulek.Domain.pdb
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\ref\UTB.Utulek.Domain.dll
+C:\Users\AI\Documents\Vejska\pokrocile_weby\UTB.Utulek\UTB.Utulek.Domain\obj\Debug\net10.0\UTB.Utul.6AF89FA4.Up2Date
