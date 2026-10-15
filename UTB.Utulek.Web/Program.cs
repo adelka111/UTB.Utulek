@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using UTB.Utulek.Application.Abstraction;
+using UTB.Utulek.Application.Implementation;
+using UTB.Utulek.Domain.Repositories;
 using UTB.Utulek.Infrastructure.Database;
+using UTB.Utulek.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,11 @@ var connectionString = builder.Configuration.GetConnectionString("MySQL");
 var serverVersion = ServerVersion.AutoDetect(connectionString);
 builder.Services.AddDbContext<UtulekDbContext>
     (optionBuilder => optionBuilder.UseMySql(connectionString, serverVersion));
+
+
+builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
+
+builder.Services.AddScoped<IAnimalAppService, AnimalAppService>();
 
 var app = builder.Build();
 
@@ -27,6 +36,12 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "Areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
 
 app.MapControllerRoute(
     name: "default",

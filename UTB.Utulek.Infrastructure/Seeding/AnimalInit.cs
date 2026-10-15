@@ -5,11 +5,11 @@ namespace UTB.Utulek.Infrastructure.Database.Seeding
 {
     internal class AnimalInit
     {
-        public IList<Domain.Entities.Animal> GetAnimals()
+        public IList<Animal> GetAnimals()
         {
-            IList<Domain.Entities.Animal> animals = new List<Domain.Entities.Animal>();
+            IList<Animal> animals = new List<Animal>();
 
-            animals.Add(new Domain.Entities.Animal
+            animals.Add(new Animal
             {
                 Id = 1,
                 Name = "Rex",
@@ -20,7 +20,7 @@ namespace UTB.Utulek.Infrastructure.Database.Seeding
                 ImageFileName = "/img/animals/rex.jpg",
                 SpeciesId = 1
             });
-            animals.Add(new Domain.Entities.Animal
+            animals.Add(new Animal
             {
                 Id = 2,
                 Name = "Micka",
@@ -31,7 +31,7 @@ namespace UTB.Utulek.Infrastructure.Database.Seeding
                 ImageFileName = "/img/animals/micka.jpg",
                 SpeciesId = 2
             });
-            animals.Add(new Domain.Entities.Animal
+            animals.Add(new Animal
             {
                 Id = 3,
                 Name = "Bob",

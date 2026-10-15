@@ -60,6 +60,41 @@ namespace UTB.Utulek.Infrastructure.Migrations
                     b.HasIndex("SpeciesId");
 
                     b.ToTable("Animal");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDate = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Breed = "Kříženec",
+                            Description = "Přátelský pes, má rád dlouhé procházky.",
+                            Gender = 0,
+                            ImageFileName = "/img/animals/rex.jpg",
+                            Name = "Rex",
+                            SpeciesId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BirthDate = new DateTime(2022, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Breed = "Evropská krátkosrstá",
+                            Description = "Klidná kočka, vhodná i do bytu.",
+                            Gender = 1,
+                            ImageFileName = "/img/animals/micka.jpg",
+                            Name = "Micka",
+                            SpeciesId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BirthDate = new DateTime(2023, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Breed = "Králík domácí",
+                            Description = "Mladý králík, zvyklý na děti.",
+                            Gender = 0,
+                            ImageFileName = "/img/animals/bob.jpg",
+                            Name = "Bob",
+                            SpeciesId = 3
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalUpdate", b =>
@@ -109,6 +144,23 @@ namespace UTB.Utulek.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Species");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Pes"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Kočka"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Králík"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.VirtualAdoption", b =>

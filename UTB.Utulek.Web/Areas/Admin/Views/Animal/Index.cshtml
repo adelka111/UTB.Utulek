@@ -1,0 +1,43 @@
+﻿@model IList<Animal>
+@using Domain.Entities
+@{
+    ViewData["Title"] = "Animal Administrator";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@nameof(Animal.Id)</th>
+                <th scope="col">@nameof(Animal.Name)</th>
+                <th scope="col">@nameof(Animal.Species)</th>
+                <th scope="col">@nameof(Animal.BirthDate)</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var animal in Model)
+            {
+                <tr>
+                    <td>@animal.Id</td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Species?.Name</td>
+                    <td>@animal.BirthDate.ToShortDateString()</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@animal.Id" class="btn btn-sm btn-info">Detail</a>
+                        <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-sm btn-primary">Upravit</a>
+                        <a asp-action="Delete" asp-route-id="@animal.Id" class="btn btn-sm btn-danger">Smazat</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Žádná zvířata nejsou v databázi.</p>
+}
+
+<a asp-action="Create" class="btn btn-success">Přidat zvíře</a>
