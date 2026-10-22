@@ -27,10 +27,8 @@
                     <td>@(animal.Species?.Name ?? animal.OtherSpeciesName)</td>
                     <td>@animal.BirthDate.ToShortDateString()</td>
                     <td>
-                        @* TODO: odkomentovat po implementaci akcí Details a Edit v AnimalController
                         <a asp-action="Details" asp-route-id="@animal.Id" class="btn btn-sm btn-info">Detail</a>
                         <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-sm btn-primary">Upravit</a>
-                        *@
                         <form asp-action="Delete" asp-route-id="@animal.Id" method="post" class="d-inline"
                               onsubmit="return confirmDelete(this)" data-name="@animal.Name">
                             <button type="submit" class="btn btn-sm btn-danger">Smazat</button>

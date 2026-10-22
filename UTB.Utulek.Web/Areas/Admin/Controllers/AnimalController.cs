@@ -23,6 +23,16 @@ public class AnimalController : Controller
         return View(animals);
     }
 
+    public IActionResult Details(int id)
+    {
+        Animal? animal = _animalAppService.GetById(id);
+        if (animal == null)
+        {
+            return NotFound();
+        }
+        return View(animal);
+    }
+
     [HttpGet]
     public IActionResult Create()
     {
@@ -34,29 +44,57 @@ public class AnimalController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(Animal animal)
     {
-        if (animal.SpeciesId == null)
-        {
-            ModelState.AddModelError(nameof(Animal.SpeciesId), "Vyberte druh zvířete.");
-        }
-        else if (animal.SpeciesId == OtherSpeciesId && string.IsNullOrWhiteSpace(animal.OtherSpeciesName))
-        {
-            ModelState.AddModelError(nameof(Animal.OtherSpeciesName), "Napište, o jaký druh zvířete jde.");
-        }
+        ValidateSpecies(animal);
 
         if (ModelState.IsValid)
         {
-            if (animal.SpeciesId == OtherSpeciesId)
-            {
-                // Vlastní druh se neukládá do tabulky druhů, patří jen k tomuto zvířeti.
-                animal.SpeciesId = null;
-                animal.OtherSpeciesName = animal.OtherSpeciesName!.Trim();
-            }
-            else
-            {
-                animal.OtherSpeciesName = null;
-            }
-
+            NormalizeSpecies(animal);
             _animalAppService.Create(animal);
+            return RedirectToAction(nameof(Index));
+        }
+
+        LoadSpecies();
+        return View(animal);
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Animal? animal = _animalAppService.GetById(id);
+        if (animal == null)
+        {
+            return NotFound();
+        }
+
+        // Zvíře s vlastním druhem má SpeciesId null -> v selectu se má vybrat "Jiné".
+        if (animal.SpeciesId == null)
+        {
+            animal.SpeciesId = OtherSpeciesId;
+        }
+
+        LoadSpecies();
+        return View(animal);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, Animal animal)
+    {
+        if (id != animal.Id)
+        {
+            return NotFound();
+        }
+
+        ValidateSpecies(animal);
+
+        if (ModelState.IsValid)
+        {
+            NormalizeSpecies(animal);
+            bool updated = _animalAppService.Update(animal);
+            if (!updated)
+            {
+                return NotFound();
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -74,6 +112,32 @@ public class AnimalController : Controller
             return RedirectToAction(nameof(Index));
         }
         return NotFound();
+    }
+
+    private void ValidateSpecies(Animal animal)
+    {
+        if (animal.SpeciesId == null)
+        {
+            ModelState.AddModelError(nameof(Animal.SpeciesId), "Vyberte druh zvířete.");
+        }
+        else if (animal.SpeciesId == OtherSpeciesId && string.IsNullOrWhiteSpace(animal.OtherSpeciesName))
+        {
+            ModelState.AddModelError(nameof(Animal.OtherSpeciesName), "Napište, o jaký druh zvířete jde.");
+        }
+    }
+
+    private void NormalizeSpecies(Animal animal)
+    {
+        if (animal.SpeciesId == OtherSpeciesId)
+        {
+            // Vlastní druh se neukládá do tabulky druhů, patří jen k tomuto zvířeti.
+            animal.SpeciesId = null;
+            animal.OtherSpeciesName = animal.OtherSpeciesName!.Trim();
+        }
+        else
+        {
+            animal.OtherSpeciesName = null;
+        }
     }
 
     private void LoadSpecies()

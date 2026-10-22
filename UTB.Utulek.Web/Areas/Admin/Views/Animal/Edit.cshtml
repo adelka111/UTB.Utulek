@@ -1,0 +1,24 @@
+﻿@model Animal
+@{
+    ViewData["Title"] = "Upravit zvíře";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <partial name="_AnimalForm" model="Model" />
+
+            <button type="submit" class="btn btn-primary">Uložit změny</button>
+            <a asp-action="Index" class="btn btn-secondary">Zpět</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/admin/animal-create.js" asp-append-version="true"></script>
+}

@@ -1,5 +1,4 @@
 ﻿@model Animal
-@using UTB.Utulek.Domain.Enums
 @{
     ViewData["Title"] = "Přidat zvíře";
 }
@@ -10,51 +9,7 @@
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label">Jméno</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="SpeciesId" class="form-label">Druh</label>
-                <select asp-for="SpeciesId" asp-items="ViewBag.Species" class="form-select"
-                        data-val="true" data-val-required="Vyberte druh zvířete.">
-                    <option value="">-- Vyberte druh --</option>
-                </select>
-                <span asp-validation-for="SpeciesId" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3 d-none" id="other-species-group">
-                <label asp-for="OtherSpeciesName" class="form-label">Jaký druh?</label>
-                <input asp-for="OtherSpeciesName" class="form-control" maxlength="50"
-                       data-val-required="Napište, o jaký druh zvířete jde." />
-                <span asp-validation-for="OtherSpeciesName" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Breed" class="form-label">Plemeno</label>
-                <input asp-for="Breed" class="form-control" />
-                <span asp-validation-for="Breed" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="BirthDate" class="form-label">Datum narození</label>
-                <input asp-for="BirthDate" type="date" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Gender" class="form-label">Pohlaví</label>
-                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select"></select>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Description" class="form-label">Popis</label>
-                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+            <partial name="_AnimalForm" model="Model" />
 
             <button type="submit" class="btn btn-success">Uložit</button>
             <a asp-action="Index" class="btn btn-secondary">Zpět</a>

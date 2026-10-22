@@ -25,9 +25,35 @@ public class AnimalAppService : IAnimalAppService
         return _speciesRepository.GetAll().OrderBy(s => s.Name).ToList();
     }
 
+    public Animal? GetById(int id)
+    {
+        return _animalRepository.GetByIdWithSpecies(id);
+    }
+
     public void Create(Animal animal)
     {
         _animalRepository.Add(animal);
+    }
+
+    public bool Update(Animal animal)
+    {
+        Animal? existing = _animalRepository.GetById(animal.Id);
+        if (existing == null)
+        {
+            return false;
+        }
+
+        // Přepisují se jen pole z formuláře, ostatní (např. ImageFileName) zůstávají.
+        existing.Name = animal.Name;
+        existing.Breed = animal.Breed;
+        existing.BirthDate = animal.BirthDate;
+        existing.Gender = animal.Gender;
+        existing.Description = animal.Description;
+        existing.SpeciesId = animal.SpeciesId;
+        existing.OtherSpeciesName = animal.OtherSpeciesName;
+
+        _animalRepository.Edit(existing);
+        return true;
     }
 
     public bool Delete(int id)

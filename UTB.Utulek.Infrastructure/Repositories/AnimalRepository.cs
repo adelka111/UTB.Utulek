@@ -15,4 +15,9 @@ public class AnimalRepository : Repository<Animal, int>, IAnimalRepository
     {
         return dbSet.Include(a => a.Species).ToList();
     }
+
+    public Animal? GetByIdWithSpecies(int id)
+    {
+        return dbSet.Include(a => a.Species).FirstOrDefault(a => a.Id == id);
+    }
 }

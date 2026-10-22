@@ -5,4 +5,5 @@ namespace UTB.Utulek.Domain.Repositories;
 public interface IAnimalRepository : IRepository<Animal, int>
 {
     IList<Animal> GetAllWithSpecies();
+    Animal? GetByIdWithSpecies(int id);
 }
