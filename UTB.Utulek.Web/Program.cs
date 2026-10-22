@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UTB.Utulek.Application.Abstraction;
 using UTB.Utulek.Application.Implementation;
 using UTB.Utulek.Domain.Repositories;
 using UTB.Utulek.Infrastructure.Database;
+using UTB.Utulek.Infrastructure.Identity;
 using UTB.Utulek.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,10 @@ var serverVersion = ServerVersion.AutoDetect(connectionString);
 builder.Services.AddDbContext<UtulekDbContext>
     (optionBuilder => optionBuilder.UseMySql(connectionString, serverVersion));
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<UtulekDbContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
@@ -22,6 +28,12 @@ builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
 builder.Services.AddScoped<IAnimalAppService, AnimalAppService>();
 
 var app = builder.Build();
+
+// Automatické použití migrací a seed rolí Admin, Manager, Zakaznik.
+using (var scope = app.Services.CreateScope())
+{
+    await DatabaseInitializer.InitializeAsync(scope.ServiceProvider);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -34,6 +46,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
