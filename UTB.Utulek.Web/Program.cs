@@ -17,6 +17,7 @@ builder.Services.AddDbContext<UtulekDbContext>
 
 
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
+builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
 
 builder.Services.AddScoped<IAnimalAppService, AnimalAppService>();
 

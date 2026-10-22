@@ -10,30 +10,32 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">@nameof(Animal.Id)</th>
+                <th scope="col">#</th>
                 <th scope="col">@nameof(Animal.Name)</th>
                 <th scope="col">@nameof(Animal.Species)</th>
                 <th scope="col">@nameof(Animal.BirthDate)</th>
-                @* TODO: odkomentovat po implementaci akcí Details, Edit a Delete v AnimalController
                 <th scope="col">Actions</th>
-                *@
             </tr>
         </thead>
         <tbody>
-            @foreach (var animal in Model)
+            @for (int i = 0; i < Model.Count; i++)
             {
+                Animal animal = Model[i];
                 <tr>
-                    <td>@animal.Id</td>
+                    <td>@(i + 1)</td>
                     <td>@animal.Name</td>
-                    <td>@animal.Species?.Name</td>
+                    <td>@(animal.Species?.Name ?? animal.OtherSpeciesName)</td>
                     <td>@animal.BirthDate.ToShortDateString()</td>
-                    @* TODO: odkomentovat po implementaci akcí Details, Edit a Delete v AnimalController
                     <td>
+                        @* TODO: odkomentovat po implementaci akcí Details a Edit v AnimalController
                         <a asp-action="Details" asp-route-id="@animal.Id" class="btn btn-sm btn-info">Detail</a>
                         <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-sm btn-primary">Upravit</a>
-                        <a asp-action="Delete" asp-route-id="@animal.Id" class="btn btn-sm btn-danger">Smazat</a>
+                        *@
+                        <form asp-action="Delete" asp-route-id="@animal.Id" method="post" class="d-inline"
+                              onsubmit="return confirmDelete(this)" data-name="@animal.Name">
+                            <button type="submit" class="btn btn-sm btn-danger">Smazat</button>
+                        </form>
                     </td>
-                    *@
                 </tr>
             }
         </tbody>
@@ -44,6 +46,8 @@ else
     <p>Žádná zvířata nejsou v databázi.</p>
 }
 
-@* TODO: odkomentovat po implementaci akce Create v AnimalController
 <a asp-action="Create" class="btn btn-success">Přidat zvíře</a>
-*@
+
+@section Scripts {
+    <script src="~/js/dialog.js" asp-append-version="true"></script>
+}

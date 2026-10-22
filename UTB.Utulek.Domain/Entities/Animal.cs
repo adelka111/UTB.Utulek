@@ -25,8 +25,12 @@ public class Animal : BaseEntity
 
     public string? ImageFileName { get; set; }
 
-    public int SpeciesId { get; set; }
+    // Druh z nabídky (Kočka, Králík, Pes). U druhu "Jiné" je null a název je v OtherSpeciesName.
+    public int? SpeciesId { get; set; }
     public Species? Species { get; set; }
+
+    [StringLength(50, ErrorMessage = "Název druhu může mít nejvýše 50 znaků.")]
+    public string? OtherSpeciesName { get; set; }
 
     public ICollection<VirtualAdoption> VirtualAdoptions { get; set; } = new List<VirtualAdoption>();
     public ICollection<AnimalUpdate> Updates { get; set; } = new List<AnimalUpdate>();
