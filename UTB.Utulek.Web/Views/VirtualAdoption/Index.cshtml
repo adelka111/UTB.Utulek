@@ -1,0 +1,65 @@
+﻿@model IList<UTB.Utulek.Domain.Entities.VirtualAdoption>
+@using UTB.Utulek.Domain.Entities
+@{
+    ViewData["Title"] = "Moje adopce";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th scope="col">Zvíře</th>
+                <th scope="col">Měsíčně</th>
+                <th scope="col">Od</th>
+                <th scope="col">Vzkaz</th>
+                <th scope="col">Stav</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (VirtualAdoption adoption in Model)
+            {
+                string animalName = adoption.Animal?.Name ?? "—";
+                <tr>
+                    <td>
+                        @animalName
+                        <div class="small text-body-secondary">@(adoption.Animal?.Species?.Name ?? adoption.Animal?.OtherSpeciesName)</div>
+                    </td>
+                    <td>@adoption.MonthlyAmount.ToString("N0") Kč</td>
+                    <td>@adoption.StartDate.ToLocalTime().ToString("d. M. yyyy")</td>
+                    <td>@adoption.Message</td>
+                    <td>
+                        @if (adoption.IsActive)
+                        {
+                            <span class="badge text-bg-success">Aktivní</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-secondary">Zrušená</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (adoption.IsActive)
+                        {
+                            <form asp-action="Cancel" asp-route-id="@adoption.Id" method="post" class="d-inline"
+                                  onsubmit="return confirm(this.dataset.question)" data-question="Opravdu zrušit adopci zvířete @animalName?">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Zrušit adopci</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Zatím nemáte žádnou virtuální adopci. Vyberte si zvíře na <a asp-controller="Home" asp-action="Index">úvodní stránce</a>.</p>
+}

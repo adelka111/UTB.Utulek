@@ -1,0 +1,34 @@
+﻿@model VirtualAdoptionCreateViewModel
+@{
+    ViewData["Title"] = "Virtuální adopce";
+}
+<h1>@ViewData["Title"]: @Model.AnimalName</h1>
+<p class="text-body-secondary">Měsíčním příspěvkem pomůžete s péčí o zvíře, než najde nový domov.</p>
+
+<div class="row">
+    <div class="col-md-6 col-lg-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AnimalId" />
+
+            <div class="mb-3">
+                <label asp-for="MonthlyAmount" class="form-label">Měsíční příspěvek (Kč)</label>
+                <input asp-for="MonthlyAmount" class="form-control" min="50" max="100000" step="1" />
+                <span asp-validation-for="MonthlyAmount" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Message" class="form-label">Vzkaz (nepovinný)</label>
+                <textarea asp-for="Message" class="form-control" rows="3" maxlength="500"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Adoptovat</button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">Zpět</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

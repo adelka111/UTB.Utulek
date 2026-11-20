@@ -1,4 +1,5 @@
 ﻿using UTB.Utulek.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UTB.Utulek.Infrastructure.Database.Seeding;
@@ -21,13 +22,14 @@ public class UtulekDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        // VirtualAdoption.UserId -> ApplicationUser (bez navigační vlastnosti, Domain o Identity neví).
+        // VirtualAdoption.User má typ rozhraní IApplicationUser (Domain o Identity neví),
+        // EF ho proto musí namapovat na konkrétní třídu ApplicationUser.
         // Délka 255 odpovídá sloupci AspNetUsers.Id, jinak MySQL cizí klíč nevytvoří (longtext).
         modelBuilder.Entity<VirtualAdoption>(entity =>
         {
             entity.Property(v => v.UserId).HasMaxLength(255);
 
-            entity.HasOne<ApplicationUser>()
+            entity.HasOne<ApplicationUser>(v => v.User as ApplicationUser)
                 .WithMany()
                 .HasForeignKey(v => v.UserId)
                 .IsRequired()
@@ -39,5 +41,14 @@ public class UtulekDbContext : IdentityDbContext<ApplicationUser>
 
         AnimalInit animalInit = new AnimalInit();
         modelBuilder.Entity<Animal>().HasData(animalInit.GetAnimals());
+
+        RoleInit roleInit = new RoleInit();
+        modelBuilder.Entity<IdentityRole>().HasData(roleInit.GetRoles());
+
+        UserInit userInit = new UserInit();
+        modelBuilder.Entity<ApplicationUser>().HasData(userInit.GetUsers());
+
+        UserRoleInit userRoleInit = new UserRoleInit();
+        modelBuilder.Entity<IdentityUserRole<string>>().HasData(userRoleInit.GetUserRoles());
     }
 }

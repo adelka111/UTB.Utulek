@@ -46,6 +46,29 @@ namespace UTB.Utulek.Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5eb05733-a760-4701-b023-3a4320286069",
+                            ConcurrencyStamp = "7970aed5-0ade-4c89-b9e7-47e72341657f",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "28308a6d-0b6b-42be-9bd0-3353de6fedd5",
+                            ConcurrencyStamp = "9cadda5d-6111-47c1-8578-12995cfc8e37",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = "cad2816b-23b6-476b-9a57-2873678dddf0",
+                            ConcurrencyStamp = "0f5325cd-bf71-49e7-9c50-f9d93cd73737",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -133,6 +156,23 @@ namespace UTB.Utulek.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "cfe1b584-c967-4c7f-81b2-89f8db220194",
+                            RoleId = "5eb05733-a760-4701-b023-3a4320286069"
+                        },
+                        new
+                        {
+                            UserId = "cfe1b584-c967-4c7f-81b2-89f8db220194",
+                            RoleId = "28308a6d-0b6b-42be-9bd0-3353de6fedd5"
+                        },
+                        new
+                        {
+                            UserId = "cfe1b584-c967-4c7f-81b2-89f8db220194",
+                            RoleId = "cad2816b-23b6-476b-9a57-2873678dddf0"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -404,6 +444,25 @@ namespace UTB.Utulek.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cfe1b584-c967-4c7f-81b2-89f8db220194",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "02bedc5f-d351-4465-9e60-b4a9d71144eb",
+                            Email = "admin@utulek.cz",
+                            EmailConfirmed = true,
+                            FullName = "Administrátor",
+                            LockoutEnabled = true,
+                            NormalizedEmail = "ADMIN@UTULEK.CZ",
+                            NormalizedUserName = "ADMIN@UTULEK.CZ",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPjzRiWsnOQ9PXKLHwVKLCOz37SXhsmU1BIAX+gzYDF+4NEQSei8xVi5Iipv0gChyg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "46324865-59f9-4aec-a4f7-383ded4e7391",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@utulek.cz"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -485,13 +544,15 @@ namespace UTB.Utulek.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UTB.Utulek.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("UTB.Utulek.Infrastructure.Identity.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Animal");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UTB.Utulek.Domain.Entities.Animal", b =>

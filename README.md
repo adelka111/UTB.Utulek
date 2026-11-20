@@ -32,7 +32,8 @@ Kontrolery používají jen služby z Application, nikdy přímo DbContext nebo 
    }
    ```
 
-3. Spusť projekt `UTB.Utulek.Web`. Při startu se databáze vytvoří a migrace se aplikují automaticky, není potřeba spouštět `Update-Database`. Aplikace běží na `https://localhost:7218`.
+3. Vytvoř databázi: v Package Manager Console nastav jako výchozí projekt `UTB.Utulek.Infrastructure` a spusť `Update-Database`. Migrace vytvoří i role a výchozího administrátora.
+4. Spusť projekt `UTB.Utulek.Web`. Aplikace běží na `https://localhost:7218`.
 
 ## Role a přihlášení
 
@@ -40,14 +41,14 @@ Kontrolery používají jen služby z Application, nikdy přímo DbContext nebo 
 |---|---|
 | Admin | správa všeho v Area Admin |
 | Manager | správa zvířat a druhů |
-| Zakaznik | prohlížení zvířat (každý nově registrovaný uživatel) |
+| Customer | prohlížení zvířat (každý nově registrovaný uživatel) |
 
-Výchozí administrátor: `admin@utulek.cz` / `Admin123!`
+Přihlašovací údaje výchozího administrátora předá autor vyučujícímu zvlášť.
 
 ## Co je hotové
 
 - vícevrstvá architektura, entity, EF Core Code-First, migrace, generický Repository pattern
-- Identity: registrace, přihlášení, role Admin / Manager / Zakaznik
+- Identity: registrace, přihlášení, role Admin / Manager / Customer
 - Area Admin: správa zvířat (včetně editace a nahrání fotky) a druhů zvířat
 - veřejná úvodní stránka se zvířaty, vlastní validační atribut `NotInFuture`
 

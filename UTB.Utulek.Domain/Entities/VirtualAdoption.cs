@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UTB.Utulek.Domain.Interfaces;
 
 namespace UTB.Utulek.Domain.Entities;
 
@@ -19,6 +20,9 @@ public class VirtualAdoption : BaseEntity
     public int AnimalId { get; set; }
     public Animal? Animal { get; set; }
 
-    // Id uživatele z Identity. Samotný uživatel je v Infrastructure.
+    [ForeignKey(nameof(User))]
     public string UserId { get; set; } = string.Empty;
+
+    // Domain zná jen rozhraní, implementace (ApplicationUser) je v Infrastructure.
+    public IApplicationUser? User { get; set; }
 }

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UTB.Utulek.Domain.Entities;
+using UTB.Utulek.Domain.Enums;
 using UTB.Utulek.Application.Abstraction;
 
 namespace UTB.Utulek.Web.Areas.Admin.Controllers;
 
 [Area("Admin")]
-[Authorize(Roles = "Admin,Manager")]
+[Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.Manager))]
 public class SpeciesController : Controller
 {
     ISpeciesAppService _speciesAppService;

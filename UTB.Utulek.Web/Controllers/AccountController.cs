@@ -1,19 +1,17 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UTB.Utulek.Infrastructure.Identity;
-using UTB.Utulek.Web.Models;
+using UTB.Utulek.Application.Abstraction;
+using UTB.Utulek.Application.ViewModels;
+using UTB.Utulek.Domain.Enums;
 
 namespace UTB.Utulek.Web.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IAuthService _authService;
 
-    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+    public AccountController(IAuthService authService)
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
+        _authService = authService;
     }
 
     [HttpGet]
@@ -31,25 +29,17 @@ public class AccountController : Controller
             return View(model);
         }
 
-        ApplicationUser user = new ApplicationUser
+        // Nově registrovaný uživatel je vždy zákazník.
+        string[]? errors = await _authService.Register(model, UserRole.Customer);
+        if (errors == null || errors.Length == 0)
         {
-            UserName = model.Email,
-            Email = model.Email,
-            FullName = model.FullName
-        };
-
-        IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-        if (result.Succeeded)
-        {
-            // Nově registrovaný uživatel je vždy zákazník.
-            await _userManager.AddToRoleAsync(user, Roles.Zakaznik);
-            await _signInManager.SignInAsync(user, isPersistent: false);
+            await _authService.Login(new LoginViewModel { Email = model.Email, Password = model.Password });
             return RedirectToAction("Index", "Home");
         }
 
-        foreach (IdentityError error in result.Errors)
+        foreach (string error in errors)
         {
-            ModelState.AddModelError(string.Empty, error.Description);
+            ModelState.AddModelError(string.Empty, error);
         }
         return View(model);
     }
@@ -72,8 +62,7 @@ public class AccountController : Controller
             return View(model);
         }
 
-        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-        if (result.Succeeded)
+        if (await _authService.Login(model))
         {
             if (Url.IsLocalUrl(returnUrl))
             {
@@ -90,14 +79,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
-        await _signInManager.SignOutAsync();
+        await _authService.Logout();
         return RedirectToAction("Index", "Home");
-    }
-
-    public IActionResult AccessDenied()
-    {
-        // Přihlášený uživatel bez potřebné role -> 403 Forbidden se srozumitelnou stránkou.
-        Response.StatusCode = StatusCodes.Status403Forbidden;
-        return View();
     }
 }

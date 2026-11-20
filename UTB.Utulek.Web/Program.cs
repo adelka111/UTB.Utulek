@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UTB.Utulek.Application.Abstraction;
 using UTB.Utulek.Application.Implementation;
+using UTB.Utulek.Domain.Interfaces;
 using UTB.Utulek.Domain.Repositories;
 using UTB.Utulek.Infrastructure.Database;
 using UTB.Utulek.Infrastructure.Identity;
@@ -24,18 +25,18 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
+builder.Services.AddScoped<IVirtualAdoptionRepository, VirtualAdoptionRepository>();
+builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 builder.Services.AddSingleton<IImageStorage>(new ImageStorage(builder.Environment.WebRootPath));
 builder.Services.AddScoped<IAnimalAppService, AnimalAppService>();
 builder.Services.AddScoped<ISpeciesAppService, SpeciesAppService>();
+builder.Services.AddScoped<IVirtualAdoptionAppService, VirtualAdoptionAppService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 var app = builder.Build();
-
-// Automatické použití migrací, seed rolí Admin, Manager, Zakaznik a výchozího administrátora.
-using (var scope = app.Services.CreateScope())
-{
-    await DatabaseInitializer.InitializeAsync(scope.ServiceProvider);
-}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

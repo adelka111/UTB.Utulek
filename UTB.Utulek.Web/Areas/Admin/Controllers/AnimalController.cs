@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UTB.Utulek.Domain.Entities;
+using UTB.Utulek.Domain.Enums;
 using UTB.Utulek.Application.Abstraction;
 
 namespace UTB.Utulek.Web.Areas.Admin.Controllers;
 
 [Area("Admin")]
-[Authorize(Roles = "Admin,Manager")]
+[Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.Manager))]
 public class AnimalController : Controller
 {
     // Hodnota volby "Jiné" v selectu druhů (žádný skutečný druh nemá záporné Id).

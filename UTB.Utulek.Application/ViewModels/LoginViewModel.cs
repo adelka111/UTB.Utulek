@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UTB.Utulek.Web.Models;
+namespace UTB.Utulek.Application.ViewModels;
 
 public class LoginViewModel
 {
